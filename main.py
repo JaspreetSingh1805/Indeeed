@@ -8,16 +8,20 @@ from time import sleep
 from selenium.webdriver.support import expected_conditions as EC
 
 
+user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
 
+# Set up Chrome options
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument(f"user-agent={user_agent}")
 
-driver = webdriver.Chrome()
+driver = webdriver.Chrome(options=chrome_options)
 wait=WebDriverWait(driver,500)
 
 jobs_data=[]
 index=0
-web_pages=int("eneter number of pages : ")
+web_pages=int(input("eneter number of pages : "))
 for page in range(web_pages):
-    start=web_pages*10
+    start=page*10
  
     driver.get(f"https://in.indeed.com/jobs?q=&l=India&start={start}&vjk=4fc71573088824d8")
     sleep(5)
@@ -102,8 +106,6 @@ for page in range(web_pages):
                 
                 # if jobs_data:
                 #     job_data_collection.insert_one(all_job_data)
-                    
-                
 
                 print(f"{index}. {post_name.text.strip()}  company name : {company_name}  location : {location} type : {print_time} salary : {salary} requirement : {summary}")
                 
